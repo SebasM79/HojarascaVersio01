@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('cespeds', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre_cesped');
+            $table->date('fecha_ingreso');
+            $table->decimal('importe', 10, 2);
+            $table->boolean('cesped_activo');
+            $table->text('descripcion');
+            $table->string('mail_origen');
             $table->timestamps();
         });
     }
