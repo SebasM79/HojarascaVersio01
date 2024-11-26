@@ -1,4 +1,4 @@
-<!-- resources/views/productos/index.blade.php -->
+<!-- resources/views/productos/index_cespeds.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>Nombre Cesped</th>
-                <th>fecha_ingreso</th>
+                <th>Fecha Ingreso</th>
                 <th>Importe</th>
                 <th>Cesped Activo</th>
                 <th>Descripcion</th>
@@ -17,24 +17,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($productos as $producto)
+            @if ($productos->isEmpty())
                 <tr>
-                    <td>{{ $producto->nombre_cesped }}</td>
-                    <td>{{ $producto->fecha_ingreso }}</td>
-                    <td>{{ $producto->importe }}</td>
-                    <td>{{ $producto->cesped_activo ? 'Sí' : 'No' }}</td>
-                    <td>{{ $producto->descripcion}}</td>
-                    <td>
-                        <a href="{{ route('cespeds.show', $producto->id) }}">Ver</a>
-                        <a href="{{ route('cespeds.edit', $producto->id) }}">Editar</a>
-                        <form action="{{ route('cespeds.destroy', $producto->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Eliminar</button>
-                        </form>
-                    </td>
+                    <td colspan="7">No hay productos disponibles.</td>
                 </tr>
-            @endforeach
+            @else
+                @foreach ($productos as $producto)
+                    <tr>
+                        <td>{{ $producto->nombre_cesped }}</td>
+                        <td>{{ $producto->fecha_ingreso }}</td>
+                        <td>{{ $producto->importe }}</td>
+                        <td>{{ $producto->cesped_activo ? 'Sí' : 'No' }}</td>
+                        <td>{{ $producto->descripcion }}</td>
+                        <td>{{ $producto->mail_origen }}</td>
+                        <td>
+                            <a href="{{ route('cespeds.show', $producto->id) }}">Ver</a>
+                            <a href="{{ route('cespeds.edit', $producto->id) }}">Editar</a>
+                            <form action="{{ route('cespeds.destroy', $producto->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 @endsection

@@ -1,12 +1,13 @@
-<!-- resources/views/productos/show.blade.php -->
+<!-- resources/views/productos/show_cespeds.blade.php -->
 @extends('layouts.app')
 
 @section('content')
     <h1>Detalles del Tipo de Cespeds</h1>
     <p><strong>Nombre Cesped:</strong> {{ $producto->nombre_cesped }}</p>
-   <p><strong>Fecha Ingreso:</strong> 
-    {{ $producto->fecha_ingreso ? $producto->fecha_ingreso->format('d/m/Y') : 'Sin fecha' }}</p>
-
+    <p><strong>Fecha Vencimiento:</strong>
+     {{ $producto->fecha_ingreso }} /
+      ${{ \Illuminate\Support\Carbon::parse($producto->fecha_ingreso)->format('d/m/Y') }}
+    </p>
 
     <p><strong>Importe:</strong> 
     {{ $producto->importe }} / Precio: 
